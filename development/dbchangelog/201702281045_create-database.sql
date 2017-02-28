@@ -1,0 +1,4 @@
+
+CREATE SCHEMA IF NOT EXISTS `location` DEFAULT CHARACTER SET utf8 ;
+
+USE `location`;
