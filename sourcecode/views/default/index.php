@@ -2,9 +2,9 @@
 
 use yii\helpers\Html;
 
-$this->title = Yii::t('app', 'Location');
+$this->title = Yii::t('app', 'Region');
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('app', 'Location'),
+    'label' => $this->title,
     'url' => [
         '/'.Yii::$app->controller->module->id,
     ],
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = [
     <h1><?= $this->title ?></h1>
 
     <p>
-        Location & postcode database for Yii2 Framework.<br/>
-        Included Indonesian database based on Ministry of Home Affairs regulation sequence 56 at 2015.
+        Region & postcode module with Indonesian database included for Yii2 Framework.<br/>
+        Indonesian database based on Ministry of Home Affairs regulation sequence 56 at 2015.
 
         <?=
         Html::ol(

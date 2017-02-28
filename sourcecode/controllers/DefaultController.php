@@ -1,6 +1,6 @@
 <?php
 
-namespace fredyns\location\controllers;
+namespace fredyns\region\controllers;
 
 use yii\web\Controller;
 

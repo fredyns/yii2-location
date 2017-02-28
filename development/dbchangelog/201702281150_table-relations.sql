@@ -1,48 +1,48 @@
 
-ALTER TABLE `locationName`
-ADD CONSTRAINT `fk_locationName_type`
-  FOREIGN KEY (`locationType_id`)
-  REFERENCES `locationType` (`id`)
+ALTER TABLE `regionName`
+ADD CONSTRAINT `fk_regionName_type`
+  FOREIGN KEY (`regionType_id`)
+  REFERENCES `regionType` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-ALTER TABLE `locationName_lang`
-ADD CONSTRAINT `fk_locationName_lang_name`
-  FOREIGN KEY (`locationName_id`)
-  REFERENCES `locationName` (`id`)
+ALTER TABLE `regionName_lang`
+ADD CONSTRAINT `fk_regionName_lang_name`
+  FOREIGN KEY (`regionName_id`)
+  REFERENCES `regionName` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-ALTER TABLE `locationType`
-ADD CONSTRAINT `fk_locationType_parent`
+ALTER TABLE `regionType`
+ADD CONSTRAINT `fk_regionType_parent`
   FOREIGN KEY (`parent_id`)
-  REFERENCES `locationType` (`id`)
+  REFERENCES `regionType` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-ALTER TABLE `locationType_lang`
-ADD CONSTRAINT `fk_locationType_lang_type`
-  FOREIGN KEY (`locationType_id`)
-  REFERENCES `locationType` (`id`)
+ALTER TABLE `regionType_lang`
+ADD CONSTRAINT `fk_regionType_lang_type`
+  FOREIGN KEY (`regionType_id`)
+  REFERENCES `regionType` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-ALTER TABLE `locationNodeCount`
-ADD CONSTRAINT `fk_locationNodeCount_parent`
+ALTER TABLE `regionNodeCount`
+ADD CONSTRAINT `fk_regionNodeCount_parent`
   FOREIGN KEY (`parent_id`)
-  REFERENCES `locationName` (`id`)
+  REFERENCES `regionName` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_locationNodeCount_type`
-  FOREIGN KEY (`locationType_id`)
-  REFERENCES `locationType` (`id`)
+ADD CONSTRAINT `fk_regionNodeCount_type`
+  FOREIGN KEY (`regionType_id`)
+  REFERENCES `regionType` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-ALTER TABLE `locationPostcode`
-ADD CONSTRAINT `fk_locationPostcode_loc`
-  FOREIGN KEY (`locationName_id`)
-  REFERENCES `locationName` (`id`)
+ALTER TABLE `regionPostcode`
+ADD CONSTRAINT `fk_regionPostcode_rgn`
+  FOREIGN KEY (`regionName_id`)
+  REFERENCES `regionName` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 

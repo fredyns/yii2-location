@@ -1,6 +1,6 @@
 <?php
 
-namespace fredyns\location;
+namespace fredyns\region;
 
 /**
  * location module definition class
@@ -10,7 +10,7 @@ class Module extends \yii\base\Module
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'fredyns\location\controllers';
+    public $controllerNamespace = 'fredyns\region\controllers';
 
     /**
      * @inheritdoc
