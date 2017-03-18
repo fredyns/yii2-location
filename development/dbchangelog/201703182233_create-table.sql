@@ -1,8 +1,8 @@
 
-CREATE TABLE IF NOT EXISTS `regionName` (
+CREATE TABLE IF NOT EXISTS `regionArea` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `parent_id` INT(10) UNSIGNED NULL DEFAULT NULL,
-  `locationType_id` INT(10) UNSIGNED NULL DEFAULT NULL,
+  `part_of` INT(10) UNSIGNED NULL DEFAULT NULL,
+  `type_id` INT(10) UNSIGNED NULL DEFAULT NULL,
   `registrationNumber` VARCHAR(32) NULL DEFAULT NULL,
   `phonePrefix` VARCHAR(16) NULL DEFAULT NULL,
   `latitude` FLOAT(11) NULL DEFAULT NULL,
@@ -15,19 +15,21 @@ CREATE TABLE IF NOT EXISTS `regionName` (
   `deleted_at` INT(10) UNSIGNED NULL DEFAULT NULL,
   `deleted_by` INT(10) UNSIGNED NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `idx_parent` (`parent_id` ASC),
-  INDEX `idx_type` (`locationType_id` ASC))
+  INDEX `idx_parent` (`part_of` ASC),
+  INDEX `idx_type` (`type_id` ASC)
+)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `regionName_lang` (
+CREATE TABLE IF NOT EXISTS `regionArea_lang` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `locationName_id` INT(10) UNSIGNED NOT NULL,
+  `area_id` INT(10) UNSIGNED NOT NULL,
   `language` VARCHAR(16) NULL DEFAULT NULL,
   `name` VARCHAR(255) NOT NULL,
   `nickname` VARCHAR(32) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `idx_name` (`locationName_id` ASC))
+  INDEX `idx_name` (`area_id` ASC)
+)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -46,29 +48,36 @@ DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `regionType_lang` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `locationType_id` INT(10) UNSIGNED NOT NULL,
+  `type_id` INT(10) UNSIGNED NOT NULL,
   `language` VARCHAR(16) NULL DEFAULT NULL,
   `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `idx_type` (`locationType_id` ASC))
+  INDEX `idx_type` (`type_id` ASC)
+)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `regionChildrenCount` (
+CREATE TABLE IF NOT EXISTS `regionPartCount` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `parent_id` INT(10) UNSIGNED NULL DEFAULT NULL,
-  `locationType_id` INT(10) UNSIGNED NOT NULL,
-  `childrenQty` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+  `part_of` INT(10) UNSIGNED NULL DEFAULT NULL,
+  `type_id` INT(10) UNSIGNED NOT NULL,
+  `quantity` INT(10) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  INDEX `idx_parent` (`parent_id` ASC),
-  INDEX `idx_type` (`locationType_id` ASC))
+  INDEX `idx_parent` (`part_of` ASC),
+  INDEX `idx_type` (`type_id` ASC),
+  CONSTRAINT `fk_rgnChildrenCount_parent`
+    FOREIGN KEY (`part_of`)
+    REFERENCES `regionArea` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `regionPostcode` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `number` SMALLINT(5) UNSIGNED NOT NULL,
-  `locationName_id` INT(10) UNSIGNED NOT NULL,
+  `area_id` INT(10) UNSIGNED NOT NULL,
   `recordStatus` ENUM('active', 'deleted') NOT NULL DEFAULT 'active',
   `created_at` INT(10) UNSIGNED NULL DEFAULT NULL,
   `created_by` INT(10) UNSIGNED NULL DEFAULT NULL,
@@ -78,6 +87,7 @@ CREATE TABLE IF NOT EXISTS `regionPostcode` (
   `deleted_by` INT(10) UNSIGNED NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `idx_number` (`number` ASC),
-  INDEX `idx_location` (`locationName_id` ASC))
+  INDEX `idx_location` (`area_id` ASC)
+)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
