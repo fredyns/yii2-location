@@ -10,6 +10,16 @@ class Module extends \yii\base\Module
     /**
      * @inheritdoc
      */
+    public $id = 'region';
+
+    /**
+     * @inheritdoc
+     */
+    public $defaultRoute = 'area';
+
+    /**
+     * @inheritdoc
+     */
     public $controllerNamespace = 'fredyns\region\controllers';
 
     /**
